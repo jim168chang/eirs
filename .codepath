@@ -1,6 +1,6 @@
-#Sun Nov 04 13:06:36 PST 2007
+#Sun Nov 04 13:10:58 PST 2007
 output_dir=ebin
-otp_project_structure=true
+otp_project_structure=false
 external_includes=
 include_dirs=include
 backend_name=

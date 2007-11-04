@@ -1,0 +1,7 @@
+#Sun Nov 04 13:06:36 PST 2007
+output_dir=ebin
+otp_project_structure=true
+external_includes=
+include_dirs=include
+backend_name=
+source_dirs=src

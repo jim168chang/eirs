@@ -49,6 +49,7 @@ mpeg_audio_frame_header(<<2#11111111111:11,VersionBits:2,LayerBits:2,ProtectedBi
         protected      = boolean(ProtectedBit),
         bit_rate       = bitrate_kbps(mpeg_version(VersionBits), mpeg_layer(LayerBits), BitrateBits),
         sample_rate    = samplerate(mpeg_version(VersionBits), SamplerateBits),
+        sample_count   = samplecount(mpeg_version(VersionBits), mpeg_layer(LayerBits)),
         padded         = bitutil:boolean(PaddingBit),
         private        = bitutil:boolean(PrivateBit),
         channel_mode   = channelmode(ChannelModeBits),
@@ -56,7 +57,8 @@ mpeg_audio_frame_header(<<2#11111111111:11,VersionBits:2,LayerBits:2,ProtectedBi
         copyrighted    = bitutil:boolean(CopyrightBit),
         original       = bitutil:boolean(OriginalBit),
         emphasis       = emphasis(EmphasisBits),
-        length         = framelength(mpeg_version(VersionBits), mpeg_layer(LayerBits), bitrate_kbps(mpeg_version(VersionBits), mpeg_layer(LayerBits), BitrateBits), samplerate(mpeg_version(VersionBits), SamplerateBits), PaddingBit)
+        length         = framelength(mpeg_version(VersionBits), mpeg_layer(LayerBits), bitrate_kbps(mpeg_version(VersionBits), mpeg_layer(LayerBits), BitrateBits), samplerate(mpeg_version(VersionBits), SamplerateBits), PaddingBit),
+        durationMillis = (1000 / samplerate(mpeg_version(VersionBits), SamplerateBits)) * samplecount(mpeg_version(VersionBits), mpeg_layer(LayerBits))
     },
     validate_frame_header(FrameHeader);
 mpeg_audio_frame_header(_) -> throw(bad_sync_word).
@@ -103,6 +105,10 @@ samplerate(2,   2#10) -> 16000;
 samplerate(2.5, 2#00) -> 11025;
 samplerate(2.5, 2#01) -> 12000;
 samplerate(2.5, 2#10) ->  8000.
+
+samplecount(_, 1) -> 384;
+samplecount(2, 3) -> 576;
+samplecount(_, _) -> 1152.
 
 channelmode(2#00) -> stereo;
 channelmode(2#01) -> joint_stereo;

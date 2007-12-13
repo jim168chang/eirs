@@ -25,6 +25,7 @@
 %%          <dt>protected</dt><dd>bool()</dd>
 %%          <dt>bit_rate</dt><dd>free_format | integer() [in kbps]</dd>
 %%          <dt>sample_rate</dt><dd>integer() [in Hz]</dd>
+%%          <dt>sample_count</dt><dd>integer()</dd>
 %%          <dt>padded</dt><dd>bool()</dd>
 %%          <dt>private</dt><dd>bool()</dd>
 %%          <dt>channel_mode</dt><dd>stereo | joint_stereo | dual_channel | single_channel</dd>
@@ -32,9 +33,10 @@
 %%          <dt>copyrighted</dt><dd>bool()</dd>
 %%          <dt>original</dt><dd>bool()</dd>
 %%          <dt>emphasis</dt><dd>none | fifty_over_fifteen | ccit_j17</dd>
-%%          <dt>length</dt><dd>integer()</dd>
+%%          <dt>length</dt><dd>integer() [in bytes]</dd>
+%%          <dt>durationMillis</dt><dd>float()</dd>
 %%      </dl>
--record(mpeg_audio_frame_header, { mpeg_version, layer, protected, bit_rate, sample_rate, padded, private, channel_mode, mode_extension, copyrighted, original, emphasis, length }).
+-record(mpeg_audio_frame_header, { mpeg_version, layer, protected, bit_rate, sample_rate, sample_count, padded, private, channel_mode, mode_extension, copyrighted, original, emphasis, length, durationMillis }).
 
 %% @type xing_header().
 %%      <dl>

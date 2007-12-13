@@ -12,5 +12,5 @@
 
 %% @spec boolean(SingleBit::binary()) -> bool()
 %% @doc Returns an atom of 'true' if the bit is set, 'false' otherwise (without the single quotes)
-boolean(2#0) -> false;
-boolean(2#1) -> true.
+boolean(0) -> false;
+boolean(1) -> true.
